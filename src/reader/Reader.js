@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import RssList from './list/RssList';
 import RssGrid from './grid/RssGrid';
+import feednami from '../libs/feednami-client-v1.1';
 
 import './reader.css';
 
@@ -17,58 +18,64 @@ class Reader extends Component {
                 url: 'https://www.liteforex.ru/rss/company-news/',
                 name: 'второй'
             }
-    
+        
         ],
-        rss: []
+        rssArr: []
     };
     
     feed = (url) => {
-        feednami.load("http://4pda.ru/feed/rss")
-            .then(feed => {
-                // textarea.value = '';
-                console.log(feed);
-                // for(let entry of feed.entries){
-                //     textarea.value += `${entry.title}\n${entry.link}\n\n`
-                // }
-            });
+        feednami.load(url)
+        .then(feed => {
+            this.setState({rssArr: this.state.rssArr.concat(feed.entries)});
+        });
     };
     
+    concatRss() {
+        this.state.rssList.forEach(item => {
+            this.feed(item.url)
+        });
+    }
+    
     componentDidMount() {
+        
         const localRssList = JSON.parse(localStorage.getItem('rssList'));
         if (localRssList) {
-            this.setState({ rssList: localRssList });
+            this.setState({rssList: localRssList});
         }
     }
     
+    componentWillMount() {
+        this.concatRss();
+    }
+    
     componentDidUpdate() {
-        console.log('состояние изменилось');
-        console.log(this.state.rssList);
         this._updateLocalStorage();
     }
-    handlerList = (newRss) => {  
+    
+    handlerList = (newRss) => {
         console.log(newRss);
         const newList = this.state.rssList.slice();
         newList.unshift(newRss);
-        this.setState({ rssList: newList });
+        this.setState({rssList: newList});
     };
     
     render() {
         return (
             <div className="reader">
-                <RssGrid/>
+                <RssGrid rssArr={this.state.rssArr}/>
                 <RssList
-                onChange={this.handlerList}
-                list={this.state.rssList}
+                    onChange={this.handlerList}
+                    list={this.state.rssList}
                 />
             </div>
         );
     }
-
+    
     _updateLocalStorage() {
         const rssList = JSON.stringify(this.state.rssList);
         localStorage.setItem('rssList', rssList);
     }
-
+    
 }
 
 export default Reader;
