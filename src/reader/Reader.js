@@ -18,19 +18,20 @@ class Reader extends Component {
                 name: 'второй'
             }
     
-        ]
+        ],
+        rss: []
     };
     
     feed = (url) => {
-        feednami.load(url)
+        feednami.load("http://4pda.ru/feed/rss")
             .then(feed => {
-                textarea.value = ''
-                console.log(feed)
-                for(let entry of feed.entries){
-                    textarea.value += `${entry.title}\n${entry.link}\n\n`
-                }
+                // textarea.value = '';
+                console.log(feed);
+                // for(let entry of feed.entries){
+                //     textarea.value += `${entry.title}\n${entry.link}\n\n`
+                // }
             });
-    }
+    };
     
     componentDidMount() {
         const localRssList = JSON.parse(localStorage.getItem('rssList'));
