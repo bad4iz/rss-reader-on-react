@@ -4,3 +4,6 @@
     flex-flow: row wrap; 
     background-color: bisque;
 }
+.error{
+    border-color: red;
+}
