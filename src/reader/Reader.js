@@ -1,14 +1,14 @@
-/**
- * Created by bad4iz on 14.06.2017.
- */
 import React, { Component } from 'react';
+import RssList from "./list/RssList";
+import RssGrid from "./grid/RssGrid";
 
 class Reader extends Component {
 
     render() {
         return (
             <div>
-                Reader
+                <RssList/>
+                <RssGrid/>
             </div>
         );
     }
