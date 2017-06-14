@@ -4,35 +4,47 @@ import RssItem from './RssItem';
 import './rssList.css';
 
 class RssList extends Component {
-    
+
     state = {
         urlInput: '',
-        nameInput: ''
+        nameInput: '',
+        error: false
     };
 
     handleInputChange = (event) => {
+        const {value} = event.target;
         this.setState({
-            urlInput: event.target.value
+            urlInput: value
         });
     };
 
     handleAdd = () => {
-        if (this.state.urlInput.length) {
+        if (/^http/i.test(this.state.urlInput)) {
             const newRss = {
                 url: this.state.urlInput,
                 id: Date.now()
             };
-            this.setState({urlInput: ''});
+
+            this.setState({
+                urlInput: '',
+                error: true
+            });
+
             this.props.onChange(newRss);
+        } else {
+            this.setState({error: true});
         }
     };
 
+
     render() {
-        const { list } = this.props;
+        const {list} = this.props;
+        const cl = this.state.error ? 'error' : '';
         return (
             <div className="rssList">
                 <div className="addRss">
                     <input value={this.state.urlInput}
+                           className={cl}
                            onChange={this.handleInputChange}
                            type="text"
                            placeholder="url rss"

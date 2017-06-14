@@ -9,12 +9,12 @@ class Reader extends Component {
         rssList: [
             {
                 id: '1',
-                url: 'jkljklj',
+                url: 'http://4pda.ru/feed/rss',
                 name: 'adasf'
             },
             {
                 id: '2',
-                url: 'второй',
+                url: 'https://www.liteforex.ru/rss/company-news/',
                 name: 'второй'
             }
     
