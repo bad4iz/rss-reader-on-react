@@ -1,11 +1,13 @@
 import React, {Component} from 'react';
 import List from "./List";
 
+import './rssList.css'
+
 class RssList extends Component {
 
     render() {
         return (
-            <div>
+            <div className="rssList">
                 <div className="addRss">
                     <input type="text"/>
                     <button>add</button>
