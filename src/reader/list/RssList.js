@@ -22,12 +22,8 @@ class RssList extends Component {
         const {urlInput} = this.state;
         
         const isNone = list.every((item) => {
-            const is = item.url !== urlInput;
-            console.log(item.url + '  == ' + is + ' ==  ' + urlInput);
             return item.url !== urlInput;
         });
-        
-        console.log('isNone ' + isNone);
         
         if ((/^http/i.test(urlInput)) && (isNone)) {
             const newRss = {
