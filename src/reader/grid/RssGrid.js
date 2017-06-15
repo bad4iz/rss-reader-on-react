@@ -11,7 +11,19 @@ class RssGrid extends Component {
                     <button>сортировать по заголовку</button>
                     <button>сортировать по дате</button>
                 </div>
-                RssGrid
+                {
+                    this.props.rssArr.map( (item, idx) => {
+    
+                        const {title, image, description} = item;
+                        return (
+                            <div key={idx}>
+                                <h3>{title}</h3>
+                                <p>{description}</p>
+                                <img src={image.link} alt={item.title}/>
+                            </div>
+                        )
+                    })
+                }
             </div>
         );
     }

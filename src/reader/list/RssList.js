@@ -4,39 +4,45 @@ import RssItem from './RssItem';
 import './rssList.css';
 
 class RssList extends Component {
-
+    
     state = {
         urlInput: '',
-        nameInput: '',
         error: false
     };
-
+    
     handleInputChange = (event) => {
         const {value} = event.target;
         this.setState({
             urlInput: value
         });
     };
-
+    
     handleAdd = () => {
-        if (/^http/i.test(this.state.urlInput)) {
+        const {list} = this.props;
+        const {urlInput} = this.state;
+        
+        const isNone = list.every((item) => {
+            return item.url !== urlInput;
+        });
+        
+        if ((/^http/i.test(urlInput)) && (isNone)) {
             const newRss = {
-                url: this.state.urlInput,
+                url: urlInput,
                 id: Date.now()
             };
-
+            
             this.setState({
                 urlInput: '',
-                error: true
+                error: false
             });
-
+            
             this.props.onChange(newRss);
         } else {
             this.setState({error: true});
         }
     };
-
-
+    
+    
     render() {
         const {list} = this.props;
         const cl = this.state.error ? 'error' : '';
@@ -55,22 +61,22 @@ class RssList extends Component {
                     {
                         list &&
                         list.map(item => {
-                            return (
+                                return (
                                     <RssItem
                                         key={item.id}
                                         rss={item}
                                     />
-                            );
-                        }
+                                );
+                            }
                         )
-
+                        
                     }
                 </ul>
             </div>
         );
     }
-
-
+    
+    
 }
 
 export default RssList;
