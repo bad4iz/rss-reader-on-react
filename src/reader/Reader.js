@@ -8,16 +8,16 @@ import './reader.css';
 class Reader extends Component {
     state = {
         rssList: [
-            {
-                id: '1',
-                url: 'http://4pda.ru/feed/rss',
-                name: 'adasf'
-            },
-            {
-                id: '2',
-                url: 'https://www.liteforex.ru/rss/company-news/',
-                name: 'второй'
-            }
+            // {
+            //     id: '1',
+            //     url: 'http://4pda.ru/feed/rss',
+            //     name: 'adasf'
+            // },
+            // {
+            //     id: '2',
+            //     url: 'https://www.liteforex.ru/rss/company-news/',
+            //     name: 'второй'
+            // }
         
         ],
         rssArr: []
@@ -53,6 +53,7 @@ class Reader extends Component {
     }
     
     handlerList = (newRss) => {
+        this.concatRss();
         console.log(newRss);
         const newList = this.state.rssList.slice();
         newList.unshift(newRss);
